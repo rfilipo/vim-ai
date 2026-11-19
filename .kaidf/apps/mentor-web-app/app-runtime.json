@@ -1,0 +1,11 @@
+{
+  "app_id": "mentor-web-app",
+  "command": [
+    "/home/filipo/storage/storage/projetos/kobkob/code/K-AIDF/agent-aidf/.venv/bin/python",
+    "/home/filipo/storage/storage/projetos/kobkob/code/vim-ai/.kaidf/apps/mentor-web-app/main.py"
+  ],
+  "log_path": "/home/filipo/storage/storage/projetos/kobkob/code/vim-ai/.kaidf/apps/mentor-web-app/app-runtime.log",
+  "pid": 149729,
+  "port": 35347,
+  "status": "running"
+}

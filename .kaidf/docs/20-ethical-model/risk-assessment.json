@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "system": "Vim-AI — Vim extension that integrates the editor with the K-AIDF framework (local kob CLI and local model).",
+  "risk_class": "limited (EU AI Act): a developer tool with transparency obligations; not a high-risk Annex III system.",
+  "assessed_on": "2026-11-19",
+  "assessed_by_role": "project-maintainer",
+  "risks": [
+    {
+      "id": "R1",
+      "description": "Model-generated Vimscript or shell commands, if applied unreviewed, can execute arbitrary commands on the developer's machine (the plugin's domain includes system() calls).",
+      "likelihood": "medium",
+      "impact": "high",
+      "mitigation": "Human-in-the-loop is mandatory: generated code is shown as a diff in the editor and applied only after explicit maintainer approval (see policy/hitl-config.yaml). kob write/exec actions ask for confirmation unless --yolo, which this project does not use.",
+      "owner_role": "project-maintainer"
+    },
+    {
+      "id": "R2",
+      "description": "Prompt injection: buffer or repository content (third-party code, comments, docs) can try to steer the local model into unwanted actions.",
+      "likelihood": "medium",
+      "impact": "medium",
+      "mitigation": "The model never acts directly: every effect passes through a kob command with human confirmation, and contracts bound what each phase may do. Untrusted content is treated as data, never as instructions.",
+      "owner_role": "project-maintainer"
+    },
+    {
+      "id": "R3",
+      "description": "Data leakage if a remote model endpoint is configured, sending proprietary code outside the perimeter.",
+      "likelihood": "low",
+      "impact": "high",
+      "mitigation": "Local-first by design: the plugin itself makes no network calls and only invokes the local kob CLI; policy/budget.yaml sets local_fallback: true and the project standard is a local Ollama model. PII masking rules (policy/pii-masking-rules.yaml) apply to prompts and logs.",
+      "owner_role": "project-maintainer"
+    },
+    {
+      "id": "R4",
+      "description": "Supply-chain risk through plugin managers or a compromised release artifact.",
+      "likelihood": "low",
+      "impact": "medium",
+      "mitigation": "Releases are tagged from the protected main branch, changes are reviewed under CODEOWNERS, and CI (lint + headless load test) must pass before merge.",
+      "owner_role": "project-maintainer"
+    },
+    {
+      "id": "R5",
+      "description": "Over-reliance on the KAIDF-AMM score as a quality guarantee for the extension itself.",
+      "likelihood": "medium",
+      "impact": "low",
+      "mitigation": "The scorecard always ships with its findings list, phase acceptance requires the mentor exit criteria (not the score alone), and the verification checklist in docs/05_verification_transfer is executed by a human.",
+      "owner_role": "project-maintainer"
+    }
+  ]
+}

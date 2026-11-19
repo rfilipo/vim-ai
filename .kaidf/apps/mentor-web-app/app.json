@@ -1,0 +1,9 @@
+{
+  "app_id": "mentor-web-app",
+  "description": "Local web app scaffold for fast mentor-guided iteration.",
+  "entrypoint": "main.py",
+  "kind": "web",
+  "mode": "persistent",
+  "title": "mentor-web-app instant app",
+  "url": "http://127.0.0.1:8765"
+}

@@ -1,0 +1,28 @@
+LOTE DE REMEDIACAO 2 — Vim-AI: fechar o Front Matter v2 (ultimos 4 pontos)
+
+DIAGNOSTICO (conferido no codigo do audit): o check varre TODOS os .md dentro
+de .kaidf/ e exige o bloco FM v2 no topo. No Lote 1, os arquivos NOVOS entraram
+(policies, manifests, CI...), mas os 6 documentos que JA existiam em
+.kaidf/docs NAO foram sobrescritos na extracao — por isso "1 of 9".
+
+PASSO 1 — extrair ESTE lote SOBRESCREVENDO (na raiz do projeto):
+    unzip -o vim-ai-remediation-batch-2.zip -d .
+  Ele traz os 6 documentos com FM (identicos aos do Lote 1) e o
+  .kaidf/README.md agora tambem com FM v2.
+
+PASSO 2 — o mentor-notes.md do app do mentor tambem conta como documento.
+  Cole este bloco no TOPO de .kaidf/apps/mentor-web-app/mentor-notes.md
+  (o mentor so acrescenta notas no fim do arquivo; o bloco fica):
+
+---
+id: apps/mentor-web-app/mentor-notes.md
+title: Mentor notes — mentor-web-app
+document_class: core-doc
+phase: 04_execution_instrumentation
+visibility: internal
+status: active
+---
+
+PASSO 3 — rode `kob audit`. Se ainda restar documento incompleto, envie a
+  saida de:  find .kaidf -name '*.md' | sort
+  que a Bolinha identifica o arquivo exato que falta.

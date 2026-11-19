@@ -1,0 +1,19 @@
+# Dataset audit manifest (Vim-AI case).
+# Vim-AI trains nothing. The "datasets" below are the corpora the workflows
+# retrieve from or evaluate against: this repository's own documentation
+# (mentor context) and the upstream K-AIDF template library.
+version: "1.0"
+# One entry per dataset.
+datasets:
+  - id: "vim-ai-repository-docs"
+    source: "This repository (.kaidf/docs, docs, README.md)"
+    license: "MIT"
+    contains_personal_data: false
+    last_audited: "2026-11-19"
+    audit_status: "audited"
+  - id: "kaidf-template-library"
+    source: "github.com/kobkob/K-AIDF — kobkob-kaidf-generator templates/library"
+    license: "MIT"
+    contains_personal_data: false
+    last_audited: "2026-11-19"
+    audit_status: "audited"

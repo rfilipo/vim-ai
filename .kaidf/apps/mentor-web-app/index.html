@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mentor-web-app</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: Georgia, serif; margin: 0; background: linear-gradient(180deg, #f6f0e8, #ffffff); color: #1f1a17; }
+    main { max-width: 52rem; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .card { background: rgba(255,255,255,0.9); border: 1px solid #d6c6b6; border-radius: 16px; padding: 1.25rem; margin-top: 1rem; box-shadow: 0 8px 24px rgba(60,40,20,0.08); }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; color: #8b5e34; }
+    h1 { font-size: 2.5rem; margin: 0.3rem 0 0.75rem; }
+    p { line-height: 1.6; }
+    code { background: #f2e7da; padding: 0.1rem 0.3rem; border-radius: 4px; }
+    textarea { width: 100%; min-height: 9rem; border: 1px solid #c8b5a3; border-radius: 12px; padding: 0.9rem; font: inherit; resize: vertical; background: #fffdf9; }
+    button { border: 0; border-radius: 999px; padding: 0.8rem 1.2rem; background: #8b5e34; color: white; font: inherit; cursor: pointer; }
+    ul { margin: 0.6rem 0 0; padding-left: 1.2rem; }
+    .status { color: #6b4f33; font-size: 0.95rem; }
+    .answer-item { border-top: 1px solid #e8dacb; padding-top: 0.8rem; margin-top: 0.8rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Mentor-driven instant app · Step 8</div>
+    <h1>mentor-web-app</h1>
+    <p>lightweight browser workflow on localhost.</p>
+    <div class="card">
+      <strong>Framework focus</strong><p>Verification & Transfer</p>
+    </div>
+    <div class="card">
+      <strong>Current mentor question</strong>
+      <p>What evidence must exist before this work is considered verified and transferable?</p>
+    </div>
+    <div class="card">
+      <strong>Current intent</strong>
+      <p>Evidence: (1) all 5 delivery phases accepted in kob status; (2) kob audit re-run after the remediation batch is applied, with the new score and any remaining findings recorded under docs/05_verification_transfer; (3)...</p>
+    </div>
+    <div class="card">
+      <strong>Answer capture</strong>
+      <p>Use this local form to capture review answers while the mentor workflow is running.</p>
+      <textarea id="answer-input" placeholder="Write the next answer or review note here."></textarea>
+      <p><button id="answer-save" type="button">Save Answer</button></p>
+      <p class="status" id="answer-status">No local answer saved in this session.</p>
+      <div id="answer-list"></div>
+    </div>
+    <div class="card">
+      <strong>Framework and runtime links</strong>
+      <ul>
+        <li><a href="file:///home/filipo/storage/storage/projetos/kobkob/code/vim-ai/.kaidf/mentor-workflow.json" target="_blank" rel="noreferrer">Mentor Workflow State</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Run</strong><p><code>python main.py</code> then open <code>http://127.0.0.1:8765</code></p>
+    </div>
+    <script>
+      async function loadState() {
+        const response = await fetch('/api/state');
+        if (!response.ok) {
+          throw new Error('Failed to load app state');
+        }
+        return response.json();
+      }
+      function renderAnswers(answers) {
+        const container = document.getElementById('answer-list');
+        if (!answers.length) {
+          container.innerHTML = '<p class="status">No saved answers yet.</p>';
+          return;
+        }
+        container.innerHTML = answers.map((item) => {
+          const created = item.created_at || 'unknown time';
+          const text = String(item.text || '').replace(/[&<>]/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[char]));
+          return `<div class="answer-item"><strong>${created}</strong><p>${text}</p></div>`;
+        }).join('');
+      }
+      async function refresh() {
+        const state = await loadState();
+        renderAnswers(state.answers || []);
+      }
+      document.getElementById('answer-save').addEventListener('click', async () => {
+        const input = document.getElementById('answer-input');
+        const status = document.getElementById('answer-status');
+        const text = input.value.trim();
+        if (!text) {
+          status.textContent = 'Write an answer before saving.';
+          return;
+        }
+        const response = await fetch('/api/answers', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({text})
+        });
+        if (!response.ok) {
+          status.textContent = 'Failed to save the answer locally.';
+          return;
+        }
+        const saved = await response.json();
+        input.value = '';
+        status.textContent = `Saved local answer at ${saved.created_at}.`;
+        await refresh();
+      });
+      refresh().catch(() => {
+        document.getElementById('answer-status').textContent = 'Unable to load local answer state.';
+      });
+    </script>
+  </main>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# PII masking rules for this K-AIDF repository (Vim-AI case).
+# Personal data handled here is incidental: it can appear in buffers, prompts
+# built from buffer content, mentor answers and logs. Each kind below is
+# masked before it reaches a model, a log or a versioned file.
+version: "1.0"
+# One rule per kind of personal data. `strategy` says what replaces the value: `redact`
+# (remove it), `hash` (keep a stable pseudonym) or `partial` (keep part of it, e.g. a domain).
+rules:
+  - field: "email"
+    applies_to: ["prompts", "logs", "versioned-files"]
+    strategy: "hash"
+  - field: "phone"
+    applies_to: ["prompts", "logs", "versioned-files"]
+    strategy: "redact"
+  - field: "national-id"
+    applies_to: ["prompts", "logs", "versioned-files"]
+    strategy: "redact"
+  - field: "api-key-or-token"
+    applies_to: ["prompts", "logs", "versioned-files"]
+    strategy: "redact"
+  - field: "person-name"
+    applies_to: ["logs", "versioned-files"]
+    strategy: "partial"
+# Who reviews these rules and when they were last reviewed.
+review:
+  owner_role: "project-maintainer"
+  last_reviewed: "2026-11-19"

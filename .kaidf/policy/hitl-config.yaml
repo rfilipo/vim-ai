@@ -1,0 +1,25 @@
+# Human-in-the-loop configuration (Vim-AI case).
+# Decisions a person must approve before they take effect. The plugin and the
+# kob workflows must never apply these silently.
+version: "1.0"
+# One entry per class of decision that needs human review.
+review_required:
+  - decision: "apply-model-generated-code"
+    reviewer_role: "project-maintainer"
+    max_wait_hours: 24
+  - decision: "accept-delivery-phase"
+    reviewer_role: "project-maintainer"
+    max_wait_hours: 72
+  - decision: "run-instant-app"
+    reviewer_role: "project-maintainer"
+    max_wait_hours: 24
+  - decision: "publish-release"
+    reviewer_role: "project-maintainer"
+    max_wait_hours: 72
+  - decision: "change-to-governance-documents"
+    reviewer_role: "governance-owner"
+    max_wait_hours: 72
+# What happens when a review is not done in time: `block` keeps the decision pending.
+on_timeout: "block"
+# Role that receives escalations about pending or disputed reviews.
+escalation_role: "governance-owner"

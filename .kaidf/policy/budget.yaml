@@ -1,0 +1,10 @@
+# Cost and infrastructure budget for model calls (Vim-AI case).
+# The primary model is local (Ollama); the caps below bound every request the
+# workflows make, and the local fallback is the primary path itself, tested
+# daily in this project.
+# Hard cap on tokens per request (output plus context). A positive integer.
+max_tokens: 8192
+# Timeout for every outbound model request, in seconds. A positive number.
+request_timeout_seconds: 120
+# true only when the fallback to a local model is configured and tested.
+local_fallback: true

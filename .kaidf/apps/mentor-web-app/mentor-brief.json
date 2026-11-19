@@ -1,0 +1,17 @@
+{
+  "answer": "Evidence: (1) all 5 delivery phases accepted in kob status; (2) kob audit re-run after the remediation batch is applied, with the new score and any remaining findings recorded under docs/05_verification_transfer; (3) the CI workflow green on GitHub (Vimscript lint plus headless plugin load test, no continue-on-error); (4) a headless Vim smoke test proving the plugin loads and :KobAudit, :KobChat, :KobMentor, :KobContracts and :KobApps are registered; (5) the full state \u2014 plugin code, .kaidf scaffold, contracts and apps \u2014 committed and pushed, so the repository itself is the transferable artifact.",
+  "answer_summary": "Evidence: (1) all 5 delivery phases accepted in kob status; (2) kob audit re-run after the remediation batch is applied, with the new score and any remaining findings recorded under docs/05_verification_transfer; (3)...",
+  "app_id": "mentor-web-app",
+  "category": "Verification & Transfer",
+  "doc_links": [
+    {
+      "href": "file:///home/filipo/storage/storage/projetos/kobkob/code/vim-ai/.kaidf/mentor-workflow.json",
+      "label": "Mentor Workflow State"
+    }
+  ],
+  "implementation_focus": "lightweight browser workflow on localhost",
+  "kind": "web",
+  "mentor_reply_summary": "Thank you for providing the evidence. Let's review it to ensure completeness and accuracy. ### Evidence Breakdown: 1. **All 5 delivery phases accepted in kob status**: This indicates that each phase of the project has...",
+  "question": "What evidence must exist before this work is considered verified and transferable?",
+  "step": 8
+}

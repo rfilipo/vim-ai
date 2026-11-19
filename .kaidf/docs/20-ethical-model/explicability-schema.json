@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "decision_types": [
+    {
+      "id": "audit-score",
+      "description": "The KAIDF-AMM audit assigns the repository a 0-100 score across five dimensions.",
+      "audience": "project-maintainer",
+      "explanation_fields": ["dimension_scores", "findings", "remediation_actions", "points_lost_per_finding"],
+      "delivered_through": "kob audit scorecard, rendered in the terminal and in the editor split by :KobAudit"
+    },
+    {
+      "id": "mentor-phase-acceptance",
+      "description": "A delivery phase is accepted when its exit criteria are met.",
+      "audience": "project-maintainer",
+      "explanation_fields": ["phase", "exit_criteria", "quiz_answers", "deliverables", "human_decision"],
+      "delivered_through": "mentor workflow in the kob shell and the phase contract files under contracts/"
+    },
+    {
+      "id": "generated-code-change",
+      "description": "The model proposes a code change to the plugin or the project.",
+      "audience": "project-maintainer",
+      "explanation_fields": ["diff", "rationale", "originating_prompt_or_contract", "affected_files"],
+      "delivered_through": "editor review before applying; nothing is written without human approval (policy/hitl-config.yaml)"
+    }
+  ]
+}

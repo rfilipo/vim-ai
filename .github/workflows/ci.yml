@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  vimscript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Vim and vim-vint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y vim
+          python3 -m pip install --user vim-vint
+
+      - name: Lint Vimscript
+        run: ~/.local/bin/vint plugin autoload
+
+      - name: Smoke test - plugin loads and registers its commands
+        run: |
+          vim -Nu NONE -n -es \
+            -c "set runtimepath+=." \
+            -c "runtime! plugin/vim_ai.vim" \
+            -c "if !exists(':KobAudit') || !exists(':KobChat') || !exists(':KobMentor') || !exists(':KobContracts') || !exists(':KobApps') | cquit | endif" \
+            -c "qa!"
