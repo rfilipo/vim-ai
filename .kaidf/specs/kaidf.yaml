@@ -1,0 +1,11 @@
+# K-AIDF spec recorded for this repository (Repository Contract layout rule:
+# `kob init` stores the spec it used at .kaidf/specs/kaidf.yaml).
+contract_version: 1
+
+repository:
+  name: vim-ai
+  description: Vim extension integrating the editor with the K-AIDF framework (kob).
+  purpose: Public case study — a real tool built with K-AIDF itself.
+
+packs:
+  - basic

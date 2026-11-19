@@ -1,0 +1,13 @@
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+tags
+
+# K-AIDF runtime state (instant apps)
+apps/*/app-runtime.json
+apps/*/app-runtime.log
+
+# OS
+.DS_Store

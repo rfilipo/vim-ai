@@ -1,0 +1,41 @@
+*vim-ai.txt*  K-AIDF integration for Vim
+
+Author:  Ricardo Filipo
+License: MIT
+
+INTRODUCTION                                    *vim-ai*
+
+Vim-AI brings the K-AIDF framework (the local `kob` CLI) into Vim: run
+governance audits, follow the mentor workflow, and inspect a project's
+contracts and instant apps without leaving the editor. It is local-first:
+the plugin shells out to your own `kob` installation.
+
+COMMANDS                                        *vim-ai-commands*
+
+:KobAudit [path]                                *:KobAudit*
+        Run `kob audit` on {path} (default: the project root) and show the
+        KAIDF-AMM scorecard in a split.
+
+:KobChat {prompt}                               *:KobChat*
+        Ask the project's model a question, with the current buffer as
+        context. (Integration point — see the case blueprint.)
+
+:KobMentor [answer]                             *:KobMentor*
+        Continue the mentor workflow from the editor.
+
+:KobContracts                                   *:KobContracts*
+        List the project's phase contracts.
+
+:KobApps                                        *:KobApps*
+        List the project's instant apps.
+
+CONFIGURATION                                   *vim-ai-config*
+
+g:vim_ai_kob                                    *g:vim_ai_kob*
+        Path to the `kob` executable. Default: 'kob'.
+
+g:vim_ai_model                                  *g:vim_ai_model*
+        Optional model override (same resolution as AIDF_MODEL).
+        Default: '' (framework default).
+
+ vim:tw=78:ts=8:ft=help:norl:
